@@ -1,0 +1,12 @@
+@import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
+@import './global/variables';
+* {
+  font-family: $font-family-K2D;
+}
+
+html{
+  body{
+    background: $background-color-default;
+    background-blend-mode: color, normal;
+  }
+}
