@@ -17,7 +17,15 @@
         </div>
       </form>
       <transition name="fade">
-        <div v-if="resultadoImc">
+        <div v-if="exibirErroCalculo" class="col-12 resultado mx-auto erro-calculo">
+          <h4 class="procure-ajuda text-center">
+            <i class="fas fa-exclamation-triangle"></i>
+            Há algo errado! Reveja os valores preenchidos.
+          </h4>
+        </div>
+      </transition>
+      <transition name="fade">
+        <div v-show="resultadoImc && exibirErroCalculo == false">
           <footer class="col-12 resultado mx-auto">
             <h2>Resultado</h2>
             <h3>{{ resultadoImc }} <span>de IMC</span></h3>
@@ -54,6 +62,7 @@ export default {
       resultadoImc: null,
       nivelObesidade: null,
       barraNivelObesidade: null,
+      exibirErroCalculo: false,
       msgErro: {
         peso: false,
         altura: false
@@ -98,6 +107,13 @@ export default {
       this.$refs['msg-erro-altura'].style.opacity = 0
 
       var calculo = parseFloat((peso / (Math.pow(altura, 2))).toFixed(2))
+
+      if (calculo <= 0) {
+        this.exibirErroCalculo = true
+        return false
+      }
+
+      this.exibirErroCalculo = false
 
       if (calculo < 18.5) {
         this.nivelObesidade = 'Abaixo do peso'
@@ -182,7 +198,10 @@ export default {
       }
     }
   }
-  footer.resultado{
+  .erro-calculo{
+    margin-top: 1em;
+  }
+  .resultado{
     max-width: 450px;
     color: $white;
     h2{

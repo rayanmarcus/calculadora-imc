@@ -1,24 +1,23 @@
-# calculadora-imc
+# Calculadora IMC
+### Feito com [Vue.js💚](https://github.com/vuejs/vue)
 
-## Project setup
-```
-npm install
-```
+<div align="center">
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+![Print - Calculadora IMC](https://i.imgur.com/v3uoxgW.png)
+</div>
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 🏃‍♂️ Instalando o projeto
 
-### Lints and fixes files
-```
-npm run lint
-```
+#### Clone ou baixe o repositório e execute os seguintes comandos:
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### <span style="padding: 3px 3px; background: blue; color: #fff;">💻 Em desenvolvimento</span>
+
+- `npm install` para instalar todas as dependências.
+- `npm run serve` para incializar o servidor front-end.
+
+#### <span style="padding: 3px 3px; background: green; color: #fff;">😮 Em produção</span>
+- `npm install` para instalar todas as dependências.
+- `npm run build` para buildar o projeto.
+
+#### <span style="padding: 3px 3px; background: #00aeff; color: #fff;">😉 Amostra do projeto em ambiente de produção</span>
+- [Calculadora IMC no Netlify](https://calculadora-imc-rm.netlify.app)
