@@ -1,7 +1,8 @@
 # Calculadora IMC
-### Feito com [Vue.js💚](https://github.com/vuejs/vue)
 
 <div align="center">
+
+### Feito com [Vue.js💚](https://github.com/vuejs/vue)
 
 ![Print - Calculadora IMC](https://i.imgur.com/v3uoxgW.png)
 </div>
