@@ -4,7 +4,7 @@
 
 ### Feito com [Vue.js💚](https://github.com/vuejs/vue)
 
-![Print - Calculadora IMC](https://i.imgur.com/v3uoxgW.png)
+![Print - Calculadora IMC](https://i.imgur.com/g0T1eSZ.png)
 </div>
 
 ## 🏃‍♂️ Instalando o projeto
