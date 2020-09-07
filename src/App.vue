@@ -5,7 +5,7 @@
         <div class="col title">
           <h1 class="text-center">
             Calculadora IMC <br/>
-            <span>adultos entre 20 e 59 anos</span>
+            <span>Pessoas a partir de 20 anos</span>
           </h1>
         </div>
       </div>
@@ -42,7 +42,7 @@ export default {
       line-height: 0.7;
       span{
         color: #8289A3;
-        font-size: 0.55em;
+        font-size: 0.52em;
       }
     }
   }

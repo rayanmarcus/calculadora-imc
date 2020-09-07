@@ -3,6 +3,11 @@
     <div class="col-lg-5 card-calculadora-imc">
       <form class="form-calculadora-imc" onsubmit="return false;">
         <div class="col form-group form-calculadora mx-auto">
+          <span>Sua idade</span>
+          <input v-model="idade" type="number" class="form form-control"/>
+          <span ref="msg-erro-idade" class="msg-erro">Digte uma idade entre 20 e 125 anos</span>
+        </div>
+        <div class="col form-group form-calculadora mx-auto">
           <span>Seu peso</span>
           <money v-model="peso" v-bind="maskPeso" class="form form-control"></money>
           <span ref="msg-erro-peso" class="msg-erro">Digite o peso</span>
@@ -41,7 +46,7 @@
             </transition>
           </footer>
           <p class="fonte-imc">
-            Fonte: <a href="https://www.saude.gov.br/component/content/article/804-imc/40509-imc-em-adultos" target="_blank">saude.gov.br</a>
+            Fonte: <a v-bind:href="urlFonteCalculo" target="_blank">saude.gov.br</a>
           </p>
         </div>
       </transition>
@@ -57,15 +62,18 @@ export default {
   },
   data () {
     return {
+      idade: '',
       peso: 0.00,
       altura: 0.00,
       resultadoImc: null,
       nivelObesidade: null,
       barraNivelObesidade: null,
       exibirErroCalculo: false,
+      urlFonteCalculo: '',
       msgErro: {
         peso: false,
-        altura: false
+        altura: false,
+        idade: false
       },
       maskPeso: {
         decimal: ',',
@@ -84,11 +92,49 @@ export default {
     }
   },
   methods: {
+    avaliacaoIMC (idade, calculo) {
+      if (idade >= 20 && idade <= 59) {
+        if (calculo < 18.5) {
+          this.nivelObesidade = 'Abaixo do peso'
+          this.barraNivelObesidade = '#ECF033'
+        } else if (calculo >= 18.5 && calculo < 25) {
+          this.nivelObesidade = 'Peso adequado'
+          this.barraNivelObesidade = '#33F03B'
+        } else if (calculo >= 25 && calculo < 30) {
+          this.nivelObesidade = 'Sobrepeso'
+          this.barraNivelObesidade = '#F0BB33'
+        } else if (calculo >= 30) {
+          this.nivelObesidade = 'Obesidade'
+          this.barraNivelObesidade = '#F05533'
+        }
+
+        this.urlFonteCalculo = 'https://www.saude.gov.br/component/content/article/804-imc/40509-imc-em-adultos'
+      } else if (idade >= 60) {
+        if (calculo <= 22) {
+          this.nivelObesidade = 'Abaixo do peso'
+          this.barraNivelObesidade = '#ECF033'
+        } else if (calculo > 22 && calculo < 27) {
+          this.nivelObesidade = 'Peso adequado'
+          this.barraNivelObesidade = '#33F03B'
+        } else if (calculo >= 27) {
+          this.nivelObesidade = 'Sobrepeso'
+          this.barraNivelObesidade = '#F0BB33'
+        }
+
+        this.urlFonteCalculo = 'http://www.saude.gov.br/component/content/article/804-imc/40511-avaliacao-do-peso-imc-na-terceira-idade'
+      }
+    },
     calcularImc () {
       var peso = this.peso
       var altura = this.altura
+      var idade = this.idade
 
-      if (!peso || !altura) {
+      if (!idade || idade < 20 || idade > 125 || !peso || !altura) {
+        if (!idade || idade < 20 || idade > 125) {
+          this.$refs['msg-erro-idade'].style.opacity = 1
+        } else {
+          this.$refs['msg-erro-idade'].style.opacity = 0
+        }
         if (!peso) {
           this.$refs['msg-erro-peso'].style.opacity = 1
         } else {
@@ -103,6 +149,7 @@ export default {
         return false
       }
 
+      this.$refs['msg-erro-idade'].style.opacity = 0
       this.$refs['msg-erro-peso'].style.opacity = 0
       this.$refs['msg-erro-altura'].style.opacity = 0
 
@@ -115,19 +162,7 @@ export default {
 
       this.exibirErroCalculo = false
 
-      if (calculo < 18.5) {
-        this.nivelObesidade = 'Abaixo do peso'
-        this.barraNivelObesidade = '#ECF033'
-      } else if (calculo >= 18.5 && calculo < 25) {
-        this.nivelObesidade = 'Peso adequado'
-        this.barraNivelObesidade = '#33F03B'
-      } else if (calculo >= 25 && calculo < 30) {
-        this.nivelObesidade = 'Sobrepeso'
-        this.barraNivelObesidade = '#F0BB33'
-      } else if (calculo >= 30) {
-        this.nivelObesidade = 'Obesidade'
-        this.barraNivelObesidade = '#F05533'
-      }
+      this.avaliacaoIMC(idade, calculo)
 
       this.resultadoImc = calculo
 
@@ -139,7 +174,6 @@ export default {
       }, 2000)
     }
   }
-
 }
 </script>
 
